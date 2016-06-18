@@ -1,0 +1,114 @@
+[
+  {
+    "selected" : false,
+    "frame" : "{{0, 0}, {492, 265}}",
+    "class" : "View",
+    "nodes" : [
+      {
+        "selected" : false,
+        "frame" : "{{0, 0}, {492, 265}}",
+        "class" : "ScrollView",
+        "nodes" : [
+          {
+            "selected" : false,
+            "frame" : "{{0, 0}, {512, 121.5}}",
+            "class" : "TextView",
+            "nodes" : [
+
+            ],
+            "attributes" : {
+              "flex" : "WHB",
+              "font_size" : 17,
+              "editable" : false,
+              "frame" : "{{20, 20}, {200, 200}}",
+              "spellchecking_type" : "no",
+              "class" : "TextView",
+              "uuid" : "D04114A8-A9C5-45C7-9A32-797FD138FCBB",
+              "alignment" : "left",
+              "autocorrection_type" : "no",
+              "name" : "textview1",
+              "font_name" : "Courier"
+            }
+          },
+          {
+            "selected" : false,
+            "frame" : "{{6, 139}, {89, 32}}",
+            "class" : "TextField",
+            "nodes" : [
+
+            ],
+            "attributes" : {
+              "flex" : "",
+              "font_size" : 17,
+              "frame" : "{{20, 104}, {200, 32}}",
+              "spellchecking_type" : "no",
+              "class" : "TextField",
+              "uuid" : "D10F7624-BF2E-4B4F-96A4-4DBBCE4A6568",
+              "alignment" : "left",
+              "autocorrection_type" : "no",
+              "name" : "offset",
+              "font_name" : "Courier"
+            }
+          },
+          {
+            "selected" : false,
+            "frame" : "{{103, 139}, {283, 32}}",
+            "class" : "TextField",
+            "nodes" : [
+
+            ],
+            "attributes" : {
+              "flex" : "",
+              "font_name" : "Courier",
+              "frame" : "{{46, 104}, {200, 32}}",
+              "spellchecking_type" : "no",
+              "class" : "TextField",
+              "uuid" : "EBD75DBD-7781-437A-BE86-A658C1B58EAD",
+              "alignment" : "left",
+              "autocorrection_type" : "no",
+              "font_size" : 17,
+              "name" : "hexstring"
+            }
+          },
+          {
+            "selected" : false,
+            "frame" : "{{394, 139}, {112, 32}}",
+            "class" : "TextField",
+            "nodes" : [
+
+            ],
+            "attributes" : {
+              "font_size" : 17,
+              "frame" : "{{145, 104}, {200, 32}}",
+              "spellchecking_type" : "no",
+              "class" : "TextField",
+              "uuid" : "F5B532BC-3B76-4908-9361-47D17F38EAA1",
+              "alignment" : "left",
+              "autocorrection_type" : "no",
+              "name" : "asciistring",
+              "font_name" : "Courier"
+            }
+          }
+        ],
+        "attributes" : {
+          "flex" : "WH",
+          "frame" : "{{86, -28}, {320, 320}}",
+          "uuid" : "EF6C46C0-A65C-4170-9A45-1BF5B8DA1617",
+          "content_height" : 339,
+          "class" : "ScrollView",
+          "content_width" : 512,
+          "name" : "scrollview1"
+        }
+      }
+    ],
+    "attributes" : {
+      "flex" : "",
+      "enabled" : true,
+      "tint_color" : "RGBA(0.000000,0.478000,1.000000,1.000000)",
+      "custom_class" : "Display",
+      "border_color" : "RGBA(0.000000,0.000000,0.000000,1.000000)",
+      "background_color" : "RGBA(1.000000,1.000000,1.000000,1.000000)",
+      "name" : "Hex Editor"
+    }
+  }
+]
