@@ -68,6 +68,7 @@ class Display(View):
 	def load_dump(self, sender):
 		with open(input_alert('Load which hex dump?'), 'r') as f:
 			self.dump = f.read().split('\n')
+		self.dump.pop()
 		self['textview1'].text = '\n'.join(self.dump)
 		self['offset'].text = '0000000'
 		self['hexstring'].text = self.dump[0][12:35]
