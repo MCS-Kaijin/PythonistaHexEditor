@@ -9,11 +9,11 @@ class TfDelegate1:
 	def textfield_did_end_editing(self, textfield):
 		if textfield.text == 'POP':
 			textfield.superview.superview.dump.pop()
-			textfield.superview.superview.shift_offset(0)
+			textfield.superview.superview.shift_offset(textfield.superview.superview.prev_offset)
 		elif textfield.text == 'ADD':
 			d = textfield.superview.superview.dump
 			d.append('{}:    00 00 00 00 00 00 00 00    |........|'.format(hex(len(d)*8)[2:].zfill(7)))
-			textfield.superview.superview.shift_offset(0)
+			textfield.superview.superview.shift_offset(textfield.superview.superview.prev_offset)
 		else:
 			col = floor(int(textfield.text, 16)/8)
 			textfield.superview.superview.shift_offset(col)
@@ -79,7 +79,11 @@ class Display(View):
 		hud_alert('Copy Succesful', 'success')
 	
 	def shift_offset(self, new_offset):
-		line = self.dump[new_offset]
+		self.prev_offset = new_offset
+		try:
+			line = self.dump[new_offset]
+		except IndexError:
+			line = self.dump[new_offset-1]
 		self['offset'].text = line[1:7]
 		self['hexstring'].text = line[12:35]
 		self['asciistring'].text = line[40:48]
@@ -109,6 +113,7 @@ class Display(View):
 	def __init__(self):
 		View.__init__(self)
 		self.dump = []
+		self.prev_offset = 0
 	
 	def __getitem__(self, key):
 		return self.subviews[0][key]
@@ -134,4 +139,3 @@ class Display(View):
 		self['asciistring'].delegate = TfDelegate3()
 
 load_view('hexeditor').present(orientations=['landscape'])
-
