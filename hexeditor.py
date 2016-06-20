@@ -1,7 +1,7 @@
 import clipboard
 
-from dialogs import input_alert, hud_alert
-from math import floor
+from dialogs import input_alert, hud_alert, form_dialog
+from math import floor, ceil
 from ui import *
 
 
@@ -110,6 +110,16 @@ class Display(View):
 		hexstring = ' '.join([hex(ord(ch))[2:] for ch in ascii])
 		self.alter_hex(hexstring)
 	
+	def change_settings(self, sender):
+		bg_hex = self.background_color[0:3]
+		bg_hex = '#' + ''.join([hex(ceil(num*255))[2:].zfill(2) for num in bg_hex])
+		tc_hex = self['textview1'].text_color[0:3]
+		tc_hex = '#' + ''.join([hex(ceil(num*255))[2:].zfill(2) for num in tc_hex])
+		new_sets = form_dialog(title='Settings', fields=[{'type': 'text', 'title': 'Background Color', 'autocapitalization': AUTOCAPITALIZE_ALL, 'value': bg_hex}, {'type': 'text', 'title': 'Text Color', 'autocapitalization': AUTOCAPITALIZE_ALL, 'value': tc_hex}])
+		if new_sets:
+			self.background_color = new_sets['Background Color']
+			self['textview1'].text_color = new_sets['Text Color']
+	
 	def __init__(self):
 		View.__init__(self)
 		self.dump = []
@@ -131,7 +141,10 @@ class Display(View):
 		load = ButtonItem()
 		load.image = Image.named('iob:ios7_download_outline_32')
 		load.action = self.load_dump
-		self.right_button_items = [add, clip]
+		settings = ButtonItem()
+		settings.image = Image('iob:gear_a_24')
+		settings.action = self.change_settings
+		self.right_button_items = [add, clip, settings]
 		self.left_button_items = [rest, load]
 		self['textview1'].editable = False
 		self['offset'].delegate = TfDelegate1()
