@@ -1,3 +1,4 @@
+import os
 import clipboard
 
 from dialogs import input_alert, hud_alert, form_dialog
@@ -119,16 +120,29 @@ class Display(View):
 		if new_sets:
 			self.background_color = new_sets['Background Color']
 			self['textview1'].text_color = new_sets['Text Color']
+			with open('.settings', 'w') as f:
+				f.write(new_sets['Background Color'] + '\n' + new_sets['Text Color'])
 	
 	def __init__(self):
 		View.__init__(self)
 		self.dump = []
 		self.prev_offset = 0
+		if not os.path.exists('.settings'):
+			with open('.settings', 'w') as f:
+				f.write('#ffffff\n#000000')
 	
 	def __getitem__(self, key):
 		return self.subviews[0][key]
 	
 	def did_load(self):
+		settings = ''
+		with open('.settings', 'r') as f:
+			settings = f.read().strip().split('\n')
+		self.background_color = settings[0]
+		self['textview1'].text_color = settings[1]
+		self.old_frames = {}
+		for key in ['offset', 'hexstring', 'asciistring']:
+			self.old_frames.update({key: self[key].frame})
 		add = ButtonItem()
 		add.image = Image.named('iob:ios7_plus_empty_32')
 		add.action = self.create_dump
@@ -150,5 +164,16 @@ class Display(View):
 		self['offset'].delegate = TfDelegate1()
 		self['hexstring'].delegate = TfDelegate2()
 		self['asciistring'].delegate = TfDelegate3()
+	
+	def keyboard_frame_did_change(self, frame):
+		for key in ['offset', 'hexstring', 'asciistring']:
+			ox, oy, ow, oh = self[key].frame
+			kx, ky, kw, kh = convert_rect(frame, self)
+			if not frame == (0.00, 0.00, 0.00, 0.00):
+				new_frame = (ox, ky-(4*oh)-10, ow, oh)
+				self[key].frame = new_frame
+			else:
+				self[key].frame = self.old_frames[key]
+
 
 load_view('hexeditor').present(orientations=['landscape'])
